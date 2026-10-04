@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerRoadmap.AI - Student Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            accent: '#10b981'
+                        },
+                        navy: {
+                            800: '#0f172a',
+                            900: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #064e3b 100%);
+        }
+        @keyframes pulseSlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow {
+            animation: pulseSlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-40 w-full glass-card border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                    <i class="fa-solid font-bold fa-compass text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">CareerRoadmap<span class="text-brand-600">.AI</span></span>
+                    <span class="block text-[10px] uppercase tracking-widest font-bold text-slate-400 -mt-1">Student Portal</span>
+                </div>
+            </div>
+
+            <nav class="flex items-center space-x-1 sm:space-x-6">
+                <button onclick="navigateTo('home')" id="nav-home" class="px-3 py-2 rounded-lg text-sm font-semibold text-brand-700 bg-brand-50 transition-colors">
+                    Home
+                </button>
+                <button onclick="navigateTo('builder')" id="nav-builder" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+                    Build Roadmap
+                </button>
+                <button onclick="navigateTo('saved')" id="nav-saved" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center space-x-2">
+                    <span>Saved Roadmaps</span>
+                    <span id="saved-count-badge" class="px-2 py-0.5 text-xs bg-brand-100 text-brand-800 font-bold rounded-full">0</span>
+                </button>
+                <button onclick="navigateTo('builder')" class="hidden sm:flex items-center space-x-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-brand-600/25 active:scale-95">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span>Create Roadmap</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- VIEW: HOME -->
+        <section id="view-home" class="space-y-12">
+            <!-- Hero Banner -->
+            <div class="hero-gradient rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 text-xs font-semibold text-brand-200">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Academic & Career Skill Development</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        AI-Powered Student Skill Development & Career Roadmap Agent
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-lg font-normal leading-relaxed">
+                        Know where you are. Understand where you want to go. Get a clear, actionable roadmap to build the practical skills and projects that take you there.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="navigateTo('builder')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-brand-500/30 transition-all flex items-center space-x-3 text-base">
+                            <span>Start Building My Roadmap</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </button>
+                        <button onclick="navigateTo('saved')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3.5 rounded-xl border border-white/20 transition-all text-base">
+                            View Saved Roadmaps
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-200">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Gap Analysis</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Identifies exact missing skills between your current profile and target career goals with explanations.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-200">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Practical Projects</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Generates hands-on project ideas tailored to your skill gaps to showcase in your portfolio.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-200">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Weekly Plan & PDF Export</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Step-by-step weekly milestone targets with immediate PDF document generation capabilities.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: BUILDER FORM -->
+        <section id="view-builder" class="hidden max-w-4xl mx-auto space-y-6">
+            <div class="glass-card p-6 sm:p-10 rounded-3xl shadow-xl border border-slate-200">
+                <div class="mb-8 border-b border-slate-200 pb-6">
+                    <h2 class="text-2xl font-extrabold text-slate-900">Build Your Career Roadmap</h2>
+                    <p class="text-slate-500 text-sm mt-1">Fill in your academic profile to generate a customized step-by-step learning path.</p>
+                </div>
+
+                <form id="roadmap-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Full Name *</label>
+                            <input type="text" id="input-name" required placeholder="e.g. Ravi Kumar" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Current Academic Year / Degree *</label>
+                            <input type="text" id="input-year" required placeholder="e.g. B.Tech Computer Science (3rd Year)" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Target Career Role *</label>
+                            <input type="text" id="input-role" required placeholder="e.g. Full Stack Developer / Data Scientist" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Target Domain / Industry</label>
+                            <input type="text" id="input-domain" placeholder="e.g. FinTech, Artificial Intelligence, Web Dev" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Current Skills (Comma Separated) *</label>
+                        <input type="text" id="input-skills" required placeholder="e.g. HTML, CSS, JavaScript, Basic Python, Git" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Weekly Available Hours *</label>
+                            <select id="input-hours" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                                <option value="5-10 Hours / week">5 - 10 Hours / week (Light)</option>
+                                <option value="10-15 Hours / week" selected>10 - 15 Hours / week (Moderate)</option>
+                                <option value="15-20+ Hours / week">15 - 20+ Hours / week (Intensive)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Timeframe Target</label>
+                            <select id="input-timeframe" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-slate-800 text-sm bg-slate-50/50">
+                                <option value="4 Weeks (1 Month Fast Track)">4 Weeks (1 Month Fast Track)</option>
+                                <option value="8 Weeks (2 Months Intensive)" selected>8 Weeks (2 Months Intensive)</option>
+                                <option value="12 Weeks (3 Months Comprehensive)">12 Weeks (3 Months Comprehensive)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex justify-end">
+                        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-brand-600/30 transition-all flex items-center space-x-3 text-base">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Generate AI Roadmap</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- VIEW: PROCESSING MODAL / SCREEN -->
+        <section id="view-processing" class="hidden max-w-2xl mx-auto text-center py-16 space-y-8">
+            <div class="glass-card p-10 rounded-3xl border border-slate-200 shadow-2xl relative overflow-hidden">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-tr from-brand-500 to-emerald-400 text-white flex items-center justify-center text-3xl shadow-xl shadow-brand-500/30 animate-bounce">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+
+                <div class="space-y-3 mt-6">
+                    <h3 class="text-2xl font-extrabold text-slate-900" id="processing-step-title">Analyzing Profile & Skills...</h3>
+                    <p class="text-slate-500 text-sm" id="processing-step-desc">Comparing your current stack against industry standards.</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden mt-6 border border-slate-200">
+                    <div id="processing-bar" class="bg-gradient-to-r from-brand-500 to-emerald-400 h-full w-1/4 transition-all duration-500"></div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-center space-x-2 text-xs font-semibold text-slate-400">
+                    <i class="fa-solid fa-spinner animate-spin text-brand-600"></i>
+                    <span>AI Career Agent active & processing</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: ROADMAP RESULTS -->
+        <section id="view-roadmap" class="hidden space-y-8">
+            <!-- Action Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <button onclick="navigateTo('saved')" class="text-slate-600 hover:text-slate-900 text-sm font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Saved Roadmaps</span>
+                </button>
+                <div class="flex items-center space-x-3">
+                    <button id="btn-save-current" onclick="saveCurrentRoadmap()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition shadow-sm flex items-center space-x-2">
+                        <i class="fa-regular fa-bookmark"></i>
+                        <span id="save-btn-text">Save Roadmap</span>
+                    </button>
+                    <button onclick="exportPDF()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition shadow-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-file-pdf text-red-400"></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ROADMAP PDF PRINT AREA -->
+            <div id="roadmap-content" class="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl space-y-10">
+                <!-- Roadmap Header -->
+                <div class="border-b border-slate-200 pb-8 flex flex-wrap justify-between items-start gap-4">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold">
+                            <i class="fa-solid fa-certificate"></i>
+                            <span>Personalized AI Learning Plan</span>
+                        </div>
+                        <h1 class="text-3xl font-extrabold text-slate-900" id="rm-student-name">Ravi Kumar</h1>
+                        <p class="text-slate-500 font-medium text-sm" id="rm-degree">B.Tech Computer Science</p>
+                    </div>
+                    <div class="text-right space-y-1 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                        <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Target Goal</span>
+                        <div class="text-lg font-bold text-slate-800" id="rm-target-role">Full Stack Developer</div>
+                        <div class="text-xs font-semibold text-brand-600" id="rm-timeframe">8 Weeks Intensive</div>
+                    </div>
+                </div>
+
+                <!-- Readiness Gauge & Summary -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 text-white space-y-4">
+                        <span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Career Readiness Meter</span>
+                        <div class="flex items-baseline space-x-2">
+                            <span class="text-4xl font-extrabold text-brand-400" id="rm-readiness-score">65%</span>
+                            <span class="text-xs text-slate-300">Target Readiness</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="rm-readiness-bar" class="bg-brand-400 h-full" style="width: 65%;"></div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed" id="rm-readiness-note">Strong foundational base. Bridging 3 critical skill gaps will bring target readiness to 90%+.</p>
+                    </div>
+
+                    <div class="md:col-span-2 glass-card p-6 rounded-2xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500">Profile & Gap Summary</h3>
+                        <p class="text-slate-700 text-sm leading-relaxed" id="rm-summary-text">
+                            Based on your background in HTML, CSS, JavaScript, and Git, you have a solid Web Development core. To transition into full Full Stack capability, you need to acquire backend architecture knowledge (Node.js/Express) and relational databases (PostgreSQL/MongoDB).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Skill Gaps Section -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
+                        <span>Identified Skill Gaps & Priority Focus</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="rm-skill-gaps-container">
+                        <!-- Dynamic Gaps -->
+                    </div>
+                </div>
+
+                <!-- Recommended Projects -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-laptop-code text-brand-600"></i>
+                        <span>Recommended Practical Projects</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="rm-projects-container">
+                        <!-- Dynamic Projects -->
+                    </div>
+                </div>
+
+                <!-- Weekly Timeline -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-timeline text-indigo-600"></i>
+                        <span>Actionable Weekly Timeline</span>
+                    </h3>
+                    <div class="space-y-4 border-l-2 border-brand-200 pl-4 sm:pl-6 ml-2" id="rm-timeline-container">
+                        <!-- Dynamic Timeline -->
+                    </div>
+                </div>
+
+                <!-- AI Recommendations & Next Steps -->
+                <div class="bg-emerald-50/60 border border-emerald-200 p-6 rounded-2xl space-y-3">
+                    <h4 class="font-bold text-emerald-900 text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-lightbulb text-emerald-600"></i>
+                        <span>AI Career Agent Advice</span>
+                    </h4>
+                    <ul class="text-xs sm:text-sm text-emerald-800 space-y-2 list-disc pl-5" id="rm-advice-list">
+                        <li>Focus on building complete functional projects rather than just watching tutorials.</li>
+                        <li>Commit code to GitHub daily to maintain a public portfolio proof.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: SAVED ROADMAPS -->
+        <section id="view-saved" class="hidden space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900">Saved Roadmaps</h2>
+                    <p class="text-slate-500 text-sm">Access and view all your generated career pathways stored on this browser.</p>
+                </div>
+                <button onclick="navigateTo('builder')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition">
+                    + New Roadmap
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div id="saved-empty-state" class="hidden glass-card p-12 text-center rounded-3xl border border-slate-200 space-y-4">
+                <div class="w-16 h-16 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-2xl">
+                    <i class="fa-regular fa-folder-open"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800">No Saved Roadmaps Found</h3>
+                <p class="text-slate-500 text-sm max-w-md mx-auto">Create a roadmap and save it to access your personalized learning plan here anytime.</p>
+                <button onclick="navigateTo('builder')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow-md transition">
+                    Create Roadmap Now
+                </button>
+            </div>
+
+            <!-- Saved Cards Grid -->
+            <div id="saved-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated cards -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full space-y-4 border border-slate-200 shadow-2xl">
+            <h3 class="text-lg font-bold text-slate-900">Delete Saved Roadmap?</h3>
+            <p class="text-slate-600 text-sm">Are you sure you want to delete this roadmap? This action cannot be undone.</p>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeDeleteModal()" class="px-4 py-2 rounded-xl text-slate-600 font-semibold text-sm hover:bg-slate-100">Cancel</button>
+                <button id="confirm-delete-btn" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let currentRoadmap = null;
+        let pendingDeleteId = null;
+
+        // Navigation Controller
+        function navigateTo(viewName) {
+            const views = ['home', 'builder', 'processing', 'roadmap', 'saved'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            const activeView = document.getElementById(`view-${viewName}`);
+            if (activeView) activeView.classList.remove('hidden');
+
+            // Nav Tabs styling
+            ['home', 'builder', 'saved'].forEach(tab => {
+                const navBtn = document.getElementById(`nav-${tab}`);
+                if (navBtn) {
+                    if (tab === viewName) {
+                        navBtn.className = "px-3 py-2 rounded-lg text-sm font-semibold text-brand-700 bg-brand-50 transition-colors";
+                    } else {
+                        navBtn.className = "px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
+                    }
+                }
+            });
+
+            if (viewName === 'saved') {
+                renderSavedRoadmaps();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Local Storage Utilities
+        function getSavedRoadmaps() {
+            try {
+                const data = localStorage.getItem('career_roadmaps');
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error("Failed to read roadmaps from localStorage", e);
+                return [];
+            }
+        }
+
+        function saveRoadmapsList(list) {
+            try {
+                localStorage.setItem('career_roadmaps', JSON.stringify(list));
+                updateSavedBadge();
+            } catch (e) {
+                console.error("Failed to save roadmaps to localStorage", e);
+            }
+        }
+
+        function updateSavedBadge() {
+            const list = getSavedRoadmaps();
+            const badge = document.getElementById('saved-count-badge');
+            if (badge) badge.textContent = list.length;
+        }
+
+        // Save Current Active Roadmap
+        function saveCurrentRoadmap() {
+            if (!currentRoadmap) return;
+
+            let savedList = getSavedRoadmaps();
+            const existingIndex = savedList.findIndex(item => item.id === currentRoadmap.id);
+
+            if (existingIndex >= 0) {
+                savedList[existingIndex] = currentRoadmap;
+            } else {
+                savedList.unshift(currentRoadmap);
+            }
+
+            saveRoadmapsList(savedList);
+
+            // Update UI button text
+            const saveBtnText = document.getElementById('save-btn-text');
+            if (saveBtnText) saveBtnText.textContent = "Saved!";
+            setTimeout(() => {
+                if (saveBtnText) saveBtnText.textContent = "Save Roadmap";
+            }, 2000);
+        }
+
+        // Handle Form Submission & AI Agent Simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const studentName = document.getElementById('input-name').value.trim();
+            const degree = document.getElementById('input-year').value.trim();
+            const targetRole = document.getElementById('input-role').value.trim();
+            const domain = document.getElementById('input-domain').value.trim();
+            const skills = document.getElementById('input-skills').value.trim();
+            const hours = document.getElementById('input-hours').value;
+            const timeframe = document.getElementById('input-timeframe').value;
+
+            navigateTo('processing');
+
+            const steps = [
+                { title: "Analyzing Student Profile...", desc: "Extracting core strengths and technical readiness.", progress: "25%" },
+                { title: "Performing Skill Gap Analysis...", desc: "Evaluating skills against industry benchmarks.", progress: "50%" },
+                { title: "Designing Portfolio Projects...", desc: "Crafting real-world project recommendations.", progress: "75%" },
+                { title: "Finalizing Step-by-Step Milestones...", desc: "Building weekly timeline plan.", progress: "100%" }
+            ];
+
+            let stepIndex = 0;
+            const stepInterval = setInterval(() => {
+                stepIndex++;
+                if (stepIndex < steps.length) {
+                    document.getElementById('processing-step-title').textContent = steps[stepIndex].title;
+                    document.getElementById('processing-step-desc').textContent = steps[stepIndex].desc;
+                    document.getElementById('processing-bar').style.width = steps[stepIndex].progress;
+                } else {
+                    clearInterval(stepInterval);
+                    // Generate AI Data Object
+                    currentRoadmap = generateAIModelOutput(studentName, degree, targetRole, domain, skills, hours, timeframe);
+                    
+                    // Auto save to local storage immediately
+                    saveCurrentRoadmap();
+
+                    // Render and display
+                    displayRoadmap(currentRoadmap);
+                    navigateTo('roadmap');
+                }
+            }, 700);
+        }
+
+        function generateAIModelOutput(name, degree, targetRole, domain, skills, hours, timeframe) {
+            const id = 'rm_' + Date.now();
+            const dateStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            const userSkillsArr = skills.split(',').map(s => s.trim()).filter(Boolean);
+
+            // Dynamic logic for gaps based on target role
+            let gaps = [];
+            let projects = [];
+            let timeline = [];
+
+            if (targetRole.toLowerCase().includes('data') || targetRole.toLowerCase().includes('ai')) {
+                gaps = [
+                    { name: "Advanced Data Manipulation & Pandas", priority: "High", reason: "Essential for cleaning real-world unstructured datasets." },
+                    { name: "Machine Learning Algorithms & Scikit-Learn", priority: "High", reason: "Core capability for predictive modeling and analysis." },
+                    { name: "SQL & Relational Databases", priority: "Medium", reason: "Required to query enterprise production data." }
+                ];
+                projects = [
+                    { title: "Customer Churn Prediction Model", desc: "Build an end-to-end ML classification model using Pandas and Scikit-learn to predict customer attrition.", tags: ["Python", "Pandas", "Scikit-Learn"] },
+                    { title: "Interactive Analytics Dashboard", desc: "Design a data visualization portal connecting SQL backend database to clean charts.", tags: ["SQL", "Streamlit", "Plotly"] }
+                ];
+                timeline = [
+                    { week: "Weeks 1 - 2", title: "Data Wrangling & SQL Foundations", desc: "Master complex SQL queries, JOINs, and Pandas dataframe manipulations." },
+                    { week: "Weeks 3 - 5", title: "Machine Learning & Model Evaluation", desc: "Train regression/classification models and perform cross-validation." },
+                    { week: "Weeks 6 - 8", title: "Deployment & Portfolio Showcase", desc: "Deploy models via Streamlit and publish complete GitHub project documentation." }
+                ];
+            } else {
+                gaps = [
+                    { name: "Backend REST API Architecture (Node/Express)", priority: "High", reason: "Necessary to build scalable servers and connect databases." },
+                    { name: "Database Design & ORMs (PostgreSQL/MongoDB)", priority: "High", reason: "Required for data persistence and secure user authentication." },
+                    { name: "State Management & Component Architecture", priority: "Medium", reason: "Key for creating complex frontend applications cleanly." }
+                ];
+                projects = [
+                    { title: "Full-Stack Task & Project Platform", desc: "Develop a full-stack CRUD application with JWT authentication and live database persistence.", tags: ["Node.js", "Express", "MongoDB/PostgreSQL"] },
+                    { title: "Real-time Collaborative Dashboard", desc: "Construct a responsive dashboard featuring interactive charts and backend API integrations.", tags: ["React/JS", "REST API", "Tailwind"] }
+                ];
+                timeline = [
+                    { week: "Weeks 1 - 2", title: "Backend Essentials & REST APIs", desc: "Learn Express server architecture, routing, and HTTP middleware." },
+                    { week: "Weeks 3 - 5", title: "Database Systems & Authentication", desc: "Design schemas, write database queries, and implement JWT user auth." },
+                    { week: "Weeks 6 - 8", title: "Full-Stack Integration & Deployment", desc: "Connect frontend with backend, deploy on cloud services, and polish portfolio." }
+                ];
+            }
+
+            return {
+                id,
+                dateStr,
+                studentName: name,
+                degree,
+                targetRole,
+                domain: domain || "Technology",
+                currentSkills: userSkillsArr,
+                hours,
+                timeframe,
+                readinessScore: 65,
+                summary: `Based on your background (${userSkillsArr.join(', ')}), you have built a foundation. To bridge your current skills to the requirements of a ${targetRole}, focusing on target architecture and system integration is the optimal pathway.`,
+                gaps,
+                projects,
+                timeline,
+                advice: [
+                    "Focus heavily on completing hands-on project builds rather than passive tutorial consumption.",
+                    "Maintain an active GitHub commit streak to demonstrate persistent coding consistency.",
+                    "Integrate automated testing to elevate project credibility in hiring evaluations."
+                ]
+            };
+        }
+
+        function displayRoadmap(rm) {
+            if (!rm) return;
+
+            document.getElementById('rm-student-name').textContent = rm.studentName;
+            document.getElementById('rm-degree').textContent = rm.degree;
+            document.getElementById('rm-target-role').textContent = rm.targetRole;
+            document.getElementById('rm-timeframe').textContent = rm.timeframe;
+            document.getElementById('rm-readiness-score').textContent = `${rm.readinessScore}%`;
+            document.getElementById('rm-readiness-bar').style.width = `${rm.readinessScore}%`;
+            document.getElementById('rm-summary-text').textContent = rm.summary;
+
+            // Render Skill Gaps
+            const gapsContainer = document.getElementById('rm-skill-gaps-container');
+            gapsContainer.innerHTML = rm.gaps.map(gap => `
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-900 text-sm">${gap.name}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${gap.priority === 'High' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}">${gap.priority} Priority</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong class="text-slate-700">Why it matters:</strong> ${gap.reason}</p>
+                </div>
+            `).join('');
+
+            // Render Projects
+            const projectsContainer = document.getElementById('rm-projects-container');
+            projectsContainer.innerHTML = rm.projects.map(proj => `
+                <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-base mb-1">${proj.title}</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">${proj.desc}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        ${proj.tags.map(tag => `<span class="px-2 py-1 rounded-md bg-brand-50 text-brand-700 font-semibold text-[11px]">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Timeline
+            const timelineContainer = document.getElementById('rm-timeline-container');
+            timelineContainer.innerHTML = rm.timeline.map(item => `
+                <div class="relative pl-4 space-y-1">
+                    <div class="absolute -left-[25px] top-1 w-3 h-3 rounded-full bg-brand-500 ring-4 ring-white"></div>
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">${item.week}</span>
+                    <h4 class="font-bold text-slate-900 text-sm">${item.title}</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>
+                </div>
+            `).join('');
+
+            // Render Advice
+            const adviceList = document.getElementById('rm-advice-list');
+            adviceList.innerHTML = rm.advice.map(adv => `<li>${adv}</li>`).join('');
+        }
+
+        function renderSavedRoadmaps() {
+            const list = getSavedRoadmaps();
+            const grid = document.getElementById('saved-cards-grid');
+            const emptyState = document.getElementById('saved-empty-state');
+
+            updateSavedBadge();
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = list.map(item => `
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-extrabold text-slate-900 text-lg">${item.targetRole}</h3>
+                                <p class="text-xs font-semibold text-slate-500">${item.studentName}</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold">${item.timeframe}</span>
+                        </div>
+                        <p class="text-xs text-slate-600 line-clamp-2">${item.summary}</p>
+                        <div class="text-[11px] text-slate-400 font-medium">Created: ${item.dateStr}</div>
+                    </div>
+                    <div class="flex items-center space-x-2 pt-2 border-t border-slate-100">
+                        <button onclick="viewSavedRoadmap('${item.id}')" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 rounded-xl text-xs transition text-center">
+                            View Roadmap
+                        </button>
+                        <button onclick="openDeleteModal('${item.id}')" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition">
+                            <i class="fa-regular fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewSavedRoadmap(id) {
+            const list = getSavedRoadmaps();
+            const found = list.find(item => item.id === id);
+            if (found) {
+                currentRoadmap = found;
+                displayRoadmap(currentRoadmap);
+                navigateTo('roadmap');
+            }
+        }
+
+        // Delete Modal Handler
+        function openDeleteModal(id) {
+            pendingDeleteId = id;
+            document.getElementById('delete-modal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            pendingDeleteId = null;
+            document.getElementById('delete-modal').classList.add('hidden');
+        }
+
+        document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+            if (pendingDeleteId) {
+                let list = getSavedRoadmaps();
+                list = list.filter(item => item.id !== pendingDeleteId);
+                saveRoadmapsList(list);
+                renderSavedRoadmaps();
+                closeDeleteModal();
+            }
+        });
+
+        // Export PDF Functionality
+        function exportPDF() {
+            const element = document.getElementById('roadmap-content');
+            if (!element) return;
+
+            if (typeof html2pdf !== 'undefined') {
+                const opt = {
+                    margin:       0.3,
+                    filename:     `${currentRoadmap ? currentRoadmap.studentName.replace(/\s+/g, '_') : 'Career'}_Roadmap.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2 },
+                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().set(opt).from(element).save();
+            } else {
+                window.print();
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            updateSavedBadge();
+        };
+    </script>
+</body>
+</html>
